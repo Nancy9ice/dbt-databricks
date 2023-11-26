@@ -1,0 +1,175 @@
+models:
+  - name: dim_admissions
+    description: This contains the patient's admission details
+    columns: 
+      - name: admission_key
+        description: Primary Key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: admission_key
+      - name: admission_type
+        description: Nature of admission of the patient
+        tests:
+          - accepted_values:
+              values:
+                - Elective
+                - Emergency
+                - Urgent
+  - name: dim_admissions_date
+    description: This contains the admission dates of the patients
+    columns: 
+      - name: admission_date_key
+        description: This is the primary key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: admission_date_key
+      - name: year
+        tests:
+          - not_null
+      - name: month
+        tests:
+          - not_null
+      - name: day
+        tests:
+          - not_null
+  - name: dim_diagnosis
+    description: This contains the patient's diagnosis details
+    columns: 
+      - name: diagnosis_key
+        description: This is the primary key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: diagnosis_key
+      - name: diagnosis
+        description: This is the disease status of the patient
+  - name: dim_discharge_date
+    description: This contains the discharge dates of the patients
+    columns: 
+      - name: discharge_date_key
+        description: This is the primary key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: discharge_date_key
+      - name: year
+        tests:
+          - not_null
+      - name: month
+        tests:
+          - not_null
+      - name: day
+        tests:
+          - not_null
+  - name: dim_health_facility
+    description: This contains the details of the hospitals and doctors
+    columns: 
+      - name: hospital_key
+        description: Primary Key of the table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: hospital_key
+      - name: hospital_name
+        description: Name of the Hospital that admitted the patient
+        tests:
+          - not_null
+      - name: doctor_id
+        description: Identification of the doctor
+      - name: first_name
+        description: First name of the doctor
+      - name: last_name
+        description: Last name of the doctor
+  - name: dim_insurance_org
+    description: This contains the patient's insurance provider
+    columns: 
+      - name: insurance_key
+        description: This is the primary key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: insurance_key
+      - name: insurance_provider
+        description: This is the insurance provider of the patient
+  - name: dim_medications
+    description: This contains the patient's medications
+    columns: 
+      - name: treatment_key
+        description: This is the primary key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: treatment_key
+      - name: medication
+        description: This is the drug prescribed to the patient. Some patients might not have drugs prescribed to them
+  - name: dim_patients
+    description: This contains the patient's bio details
+    columns: 
+      - name: patient_key
+        description: This is the primary key of the table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: patient_key
+      - name: first_name
+        description: This is the patient's first name
+        tests:
+          - not_null
+      - name: last_name
+        description: This is the patient's last name
+        tests:
+          - not_null
+      - name: age
+        description: This is the patient's age
+      - name: gender
+        description: This is the patient's gender
+      - name: blood_type
+        description: This is the patient's blood_type
+        tests:
+          - accepted_values:
+              values:
+                - O+
+                - O-
+                - A-
+                - A+
+                - AB-
+                - AB+
+                - B-
+                - B+
+      - name: room_number
+        description: This is the patient's room number in the hospital of admission
+  - name: dim_test_results
+    description: This contains the nature of the result of patient's diagnosis
+    columns: 
+      - name: result_key
+        description: Primary Key of the table
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('fct_patient_detail')
+              field: result_key
+      - name: result_status
+        description: Nature of patient's diagnosis results
+        tests:
+          - accepted_values:
+              values:
+                - Inconclusive
+                - Abnormal
+                - Normal

@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: healthcare_records
+    database: "hive_metastore"
+    schema: default
+    tables:
+      - name: _airbyte_raw_healthcare_data_extraction
